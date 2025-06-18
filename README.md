@@ -14,22 +14,37 @@ design to make it look less ugly.
 
 <h2>Enemies:</h2>
 
-·Goblin (80 HP, 5-12 dmg)
+·Goblin (❤️80 HP, ⚔️5-12 dmg)
 
-·Orc (120, 10-18 dmg)
+·Orc (❤️120 HP, ⚔️10-18 dmg)
 
-·Troll (150, 15-25 dmg)
+·Troll (❤️150 HP, ⚔️15-25 dmg)
 
 
 <h2>Features:</h2>
 
-·Inventory
+·Inventory (🧪Healing Potion, 💣Bomb)
 
-·Leveling
+![Screenshot 2](images/screenshot-2.png)
 
-·Mobs/enemies
+·Leveling (Gaining at least ❤️+20 HP as well as ⚔️+3 DMG per level)
 
-·Dialogue
+![Screenshot 3](images/screenshot-3.2.png)
 
-·HP and DMG stats for both Player/Enemy.
+![Screenshot 3.2](images/screenshot-3.1.png)
 
+·Mobs/enemies 🧟
+
+![Goblin](images/Goblin.png)
+
+![Orc](images/Orc.png)
+
+![Troll](images/Troll.png)
+
+·Dialogue 🗣️
+
+![Dialogue Box](images/dialoguebox.png)
+
+·HP and DMG stats for both Player/Enemy. ❤️⚔️
+
+![Stats](images/stats.png)
