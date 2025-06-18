@@ -18,6 +18,19 @@ const enemyTypes = [
 
 let currentEnemy = null;
 
+const introDialogues = [
+  { enemy: "You dare challenge me?", player: "I’ve fought worse before breakfast." },
+  { enemy: "This will be your grave!", player: "Try me." },
+  { enemy: "Flee while you can, mortal!", player: "I’m staying. Let’s finish this." }
+];
+
+const midFightDialogues = [
+  { enemy: "You’re tougher than you look!", player: "Still standing, aren’t I?" },
+  { enemy: "I’ll crush you!", player: "You’re welcome to try." },
+  { enemy: "Bleed for me!", player: "You first." },
+  { enemy: "You fight well... for a worm.", player: "You talk too much." }
+];
+
 const items = {
   potion: { name: "Healing Potion", type: "heal", healAmount: 30 },
   bomb: { name: "Bomb", type: "damage", damageAmount: 25 }
@@ -37,6 +50,13 @@ addItem('bomb');
 function updateUI() {
     playerHpBar.style.width = `${(player.hp / player.maxHp) * 100}%`;
     enemyHpBar.style.width = `${(currentEnemy.hp / currentEnemy.maxHp) * 100}%`;
+
+    // Update player health text
+    document.getElementById("player-health").textContent = `${player.hp} / ${player.maxHp}`;
+
+    // Optionally update player attack text as well
+    const avgAttack = Math.floor((player.attackMin + player.attackMax) / 2);
+    document.getElementById("player-attack").textContent = avgAttack;
 }
 
 function startNewEnemy(){
@@ -71,6 +91,15 @@ function enemyTurn() {
   log(`${currentEnemy.name} hits you for ${damage} damage!`);
   updateUI();
 
+  // Mid-fight dialogue (20% chance)
+  if (Math.random() < 0.2) {
+    const line = midFightDialogues[Math.floor(Math.random() * midFightDialogues.length)];
+    setTimeout(() => {
+      log(`${currentEnemy.name}: "${line.enemy}"`);
+      setTimeout(() => log(`${player.name}: "${line.player}"`), 400);
+    }, 500);
+  }
+
   if (player.hp <= 0) {
     endBattle(false);
   }
@@ -81,6 +110,14 @@ function playerTurn() {
   currentEnemy.hp = Math.max(currentEnemy.hp - damage, 0);
   log(`You strike the ${currentEnemy.name} for ${damage} damage!`);
   updateUI();
+
+    if (Math.random() < 0.2) {
+        const line = midFightDialogues[Math.floor(Math.random() * midFightDialogues.length)];
+        setTimeout(() => {
+        log(`${currentEnemy.name}: "${line.enemy}"`);
+        setTimeout(() => log(`${player.name}: "${line.player}"`), 400);
+    }, 500);
+}
 
   if (currentEnemy.hp <= 0) {
     log(`You defeated the ${currentEnemy.name}!`);
@@ -94,14 +131,20 @@ function playerTurn() {
 
   setTimeout(enemyTurn, 600);
 }
-function endBattle(victory){
-    inBattle=false;
-    attackBtn.disabled = true;
-    startBtn.disabled = false;
+
+function endBattle(victory) {
+  inBattle = false;
+  attackBtn.disabled = true;
+  startBtn.disabled = false;
+
   if (victory) {
     log("🎉 You won! Press Start to fight again.");
+    log(`${currentEnemy.name}: "This... can't be..."`);
+    setTimeout(() => log(`${player.name}: "Told you not to mess with me."`), 400);
   } else {
     log("💀 You lost! Press Start to try again.");
+    log(`${currentEnemy.name}: "Pathetic. Begone!"`);
+    setTimeout(() => log(`${player.name}: "Ugh... not... done yet..."`), 400);
   }
 }
 
@@ -125,6 +168,7 @@ function gainExp(amount) {
   updateUI();
   updateLevelUI();
 }
+
 function updateLevelUI() {
     document.getElementById("player-level").textContent = player.level;
     document.getElementById("player-exp").textContent = player.exp;
@@ -182,6 +226,10 @@ startBtn.addEventListener("click", () => {
 
   logBox.innerHTML = "";
   log(`A wild ${currentEnemy.name} appears!`);
+  //the great tragedy dialogue intro!
+  const intro = introDialogues[Math.floor(Math.random() * introDialogues.length)];
+    log(`${currentEnemy.name}: "${intro.enemy}"`);
+    setTimeout(() => log(`${player.name}: "${intro.player}"`), 400);
 
   inBattle = true;
   attackBtn.disabled = false;
