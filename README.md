@@ -29,9 +29,9 @@ design to make it look less ugly.
 
 ·Leveling (Gaining at least ❤️+20 HP as well as ⚔️+3 DMG per level)
 
-![Screenshot 3](images/screenshot-3.2.png)
+![Screenshot 3](images/Screenshot-3.2.png)
 
-![Screenshot 3.2](images/screenshot-3.1.png)
+![Screenshot 3.2](images/Screenshot-3.1.png)
 
 ·Mobs/enemies 🧟
 
