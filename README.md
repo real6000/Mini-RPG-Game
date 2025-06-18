@@ -1,14 +1,18 @@
 <h1>Mini RPG Starter</h1>
 
-![Screenshot 1](images/screenshot-1.png)
-
 Basic mini rpg game for the thrill of it, cause I used to love them.
 
 I wish I added some images and cooler designs but I was too lazy and just used CSS lol.
 
 Anyway the website bugged at least 10 times during production.
 
-Pretty cool game with these enemies:
+Might add bosses soon as well as actual images cause it's all text, and 
+design to make it look less ugly.
+
+![Screenshot 1](images/screenshot-1.png)
+
+
+<h2>Enemies:</h2>
 
 ·Goblin (80 HP, 5-12 dmg)
 
@@ -17,10 +21,7 @@ Pretty cool game with these enemies:
 ·Troll (150, 15-25 dmg)
 
 
-Might add bosses soon as well as actual images cause it's all text, and 
-design to make it look less ugly.
-
-These are the current features as of now:
+<h2>Features:</h2>
 
 ·Inventory
 
