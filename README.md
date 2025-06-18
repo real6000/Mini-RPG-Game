@@ -1,4 +1,4 @@
-#Mini RPG Starter
+<h1>Mini RPG Starter</h1>
 
 ![Screenshot 1](images/screenshot-1.png)
 
