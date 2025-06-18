@@ -7,16 +7,16 @@ const player = {
     hp: 100,
     attackMin: 8,
     attackMax: 15,
-    inventory: []
+    inventory: [] // Starting items
 };
 
-const enemy = {
-    name: "Goblin",
-    maxHp: 80,
-    hp: 80,
-    attackMin: 5,
-    attackMax: 12
-};
+const enemyTypes = [
+  { name: "Goblin", maxHp: 80, attackMin: 5, attackMax: 12 },
+  { name: "Orc", maxHp: 120, attackMin: 10, attackMax: 18 },
+  { name: "Troll", maxHp: 150, attackMin: 15, attackMax: 25 }
+];
+
+let currentEnemy = null;
 
 const items = {
   potion: { name: "Healing Potion", type: "heal", healAmount: 30 },
@@ -31,9 +31,21 @@ const logBox = document.getElementById("log");
 const playerHpBar = document.getElementById("player-hp");
 const enemyHpBar = document.getElementById("enemy-hp");
 
+addItem('potion');
+addItem('bomb');
+
 function updateUI() {
     playerHpBar.style.width = `${(player.hp / player.maxHp) * 100}%`;
-    enemyHpBar.style.width = `${(enemy.hp / enemy.maxHp) * 100}%`;
+    enemyHpBar.style.width = `${(currentEnemy.hp / currentEnemy.maxHp) * 100}%`;
+}
+
+function startNewEnemy(){
+    const randomIndex = Math.floor(Math.random() * enemyTypes.length);
+    const enemyTemplate = enemyTypes[randomIndex];
+    currentEnemy={
+        ...enemyTemplate,
+        hp: enemyTemplate.maxHp, // Reset HP for new enemy
+    }
 }
 
 function addItem(itemKey) {
@@ -52,11 +64,11 @@ function randomDamage(min, max) {
 
 
 function enemyTurn() {
-  if (enemy.hp <= 0) return;
+  if (currentEnemy.hp <= 0) return;
 
-  const damage = randomDamage(enemy.attackMin, enemy.attackMax);
+  const damage = randomDamage(currentEnemy.attackMin, currentEnemy.attackMax);
   player.hp = Math.max(player.hp - damage, 0);
-  log(`${enemy.name} hits you for ${damage} damage!`);
+  log(`${currentEnemy.name} hits you for ${damage} damage!`);
   updateUI();
 
   if (player.hp <= 0) {
@@ -66,12 +78,12 @@ function enemyTurn() {
 
 function playerTurn() {
   const damage = randomDamage(player.attackMin, player.attackMax);
-  enemy.hp = Math.max(enemy.hp - damage, 0);
-  log(`You strike the ${enemy.name} for ${damage} damage!`);
+  currentEnemy.hp = Math.max(currentEnemy.hp - damage, 0);
+  log(`You strike the ${currentEnemy.name} for ${damage} damage!`);
   updateUI();
 
-  if (enemy.hp <= 0) {
-    log(`You defeated the ${enemy.name}!`);
+  if (currentEnemy.hp <= 0) {
+    log(`You defeated the ${currentEnemy.name}!`);
     gainExp(50); // Gain experience for defeating the enemy
     inBattle=false;
     attackBtn.disabled=true;
@@ -93,27 +105,26 @@ function endBattle(victory){
   }
 }
 
-function gainExp(amount){
-    player.exp += amount;
-    log(`You gained ${amount} EXP!`);
+function gainExp(amount) {
+  player.exp += amount;
+  log(`You gained ${amount} EXP!`);
 
-    while (player.exp >= player.expToNextLevel) {
-        player.exp -= player.expToNextLevel;
-        player.level++;
-        player.expToNextLevel = Math.floor(player.expToNextLevel * 1.5);
+  while (player.exp >= player.expToNextLevel) {
+    player.exp -= player.expToNextLevel;
+    player.level++;
+    player.expToNextLevel = Math.floor(player.expToNextLevel * 1.5);
 
-        player.maxHp += 20;        // Increase max HP per level
-        player.hp = player.maxHp;   // Heal to full on level up
-        player.attackMin += 2;      // Increase attack range
-        player.attackMax += 3;
+    player.maxHp += 30;        // Increased HP gain per level
+    player.hp = player.maxHp;   // Heal fully on level up
+    player.attackMin += 2;
+    player.attackMax += 3;
 
-        log(`🎉 You leveled up! You are now level ${player.level}.`);
-    }
+    log(`🎉 You leveled up! You are now level ${player.level}. Max HP increased!`);
+  }
 
-    updateUI();  // Update health bars and stats display
-    updateLevelUI();
+  updateUI();
+  updateLevelUI();
 }
-
 function updateLevelUI() {
     document.getElementById("player-level").textContent = player.level;
     document.getElementById("player-exp").textContent = player.exp;
@@ -121,16 +132,16 @@ function updateLevelUI() {
 }
 
 function updateInventoryUI() {
-    const inventoryList = document.getElementById("inventory-list");
-    inventoryList.innerHTML = ""; // Clear existing items
+  const inventoryList = document.getElementById("inventory-list");
+  inventoryList.innerHTML = "";
 
-    player.inventory.forEach((item, index) => {
-        const li = document.createElement("li");
-        li.textContent = item.name;
-        li.style.cursor = "pointer";
-        li.addEventListener("click", () => useItem(index));
-        inventoryList.appendChild(li);
-    });
+  player.inventory.forEach((item, index) => {
+    const li = document.createElement("li");
+    li.textContent = item.name;
+    li.style.cursor = "pointer";
+    li.addEventListener("click", () => useItem(index));
+    inventoryList.appendChild(li);
+  });
 }
 
 function useItem(index){
@@ -139,10 +150,10 @@ function useItem(index){
 
     if(item.type==="heal"){
         player.hp=Math.min(player.hp+item.healAmount, player.maxHp);
-        log('YOu used a ${item.name} and healed for ${item.healAmount} HP!');
+        log('You used a ${item.name} and healed for ${item.healAmount} HP!');
         updateUI();
     }else if(item.type==="damage" && inBattle){
-        enemy.hp=Math.max(enemy.hp-item.damageAmount, 0);
+        currentEnemy.hp=Math.max(currentEnemy.hp-item.damageAmount, 0);
         log('You used a ${item.name} and dealt ${item.damageAmount} damage to the enemy!');
         updateUI();
     }else{
@@ -152,8 +163,8 @@ function useItem(index){
     player.inventory.splice(index, 1); // Remove item from inventory
     updateInventoryUI(); // Update inventory display
 
-    if(enemy.hp <= 0){
-        log(`You defeated the ${enemy.name}!`);
+    if(currentEnemy.hp <= 0){
+        log(`You defeated the ${currentEnemy.name}!`);
         gainExp(50); // Gain experience for defeating the enemy
         inBattle = false;
         attackBtn.disabled = true;
@@ -164,16 +175,17 @@ function useItem(index){
 
 //Listeners
 startBtn.addEventListener("click", () => {
-    // Reset stats
-    player.hp = player.maxHp;
-    enemy.hp = enemy.maxHp;
-    updateUI();
-    logBox.innerHTML = "";
-    log("A wild Goblin appears!");
+  startNewEnemy();  // Pick a new enemy
 
-    inBattle = true;
-    attackBtn.disabled = false;
-    startBtn.disabled = true;
+  player.hp = player.maxHp;  // Reset player HP
+  updateUI();
+
+  logBox.innerHTML = "";
+  log(`A wild ${currentEnemy.name} appears!`);
+
+  inBattle = true;
+  attackBtn.disabled = false;
+  startBtn.disabled = true;
 });
 
 attackBtn.addEventListener("click", () => {
