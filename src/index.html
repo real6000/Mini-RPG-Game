@@ -10,15 +10,23 @@
 
 <h1>Mini RPG Starter</h1>
 
-<div id="game-container">
-  <div id="map"></div>
-  <div id="stats">
-    <h2>Player Stats</h2>
-    <p><strong>HP:</strong> <span id="hp">100</span></p>
-    <p><strong>XP:</strong> <span id="xp">0</span></p>
-    <p><strong>Level:</strong> <span id="level">1</span></p>
-    <button id="attackBtn">Attack</button>
-  </div>
+  <div class="game-container">
+    <h1>Mini RPG Starter</h1>
+
+    <div id="player-stats" class="stats-box">
+      <h2>Player</h2>
+      <p>Health: <span id="player-health">100</span></p>
+      <p>Attack: <span id="player-attack">10</span></p>
+    </div>
+
+    <div id="enemy-stats" class="stats-box hidden">
+      <h2>Enemy</h2>
+      <p>Health: <span id="enemy-health"></span></p>
+      <p>Attack: <span id="enemy-attack"></span></p>
+    </div>
+    <button id="start-encounter">Start Encounter</button>
+    <button id="attack-btn" class="hidden">Attack</button>
+    <div id="message" class="message-box"></div>
 </div>
 
 <script src="script.js"></script>
