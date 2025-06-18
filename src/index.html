@@ -8,51 +8,50 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 </head>
 <body>
-<div class="screen-wrapper">
-<div class="game-container">
-<h1 style="font-size: 3rem;">Mini RPG Starter</h1>
+  <div class="screen-wrapper">
+    <div class="game-container">
+      <h1 style="font-size: 3rem;">Mini RPG Starter</h1>
 
-  <div class="row">
-  <div id="player-stats" class="stats-box">
-    <h2>Player</h2>
-    <p>Health: <span id="player-health">100</span></p>
-    <p>Attack: <span id="player-attack">10</span></p>
-    <p>Level: <span id="player-level">1</span></p>
-    <p>EXP: <span id="player-exp">0</span> / <span id="player-exp-next">100</span></p>
-  </div>
+      <div class="row">
+        <div id="player-stats" class="stats-box">
+          <h2>Player</h2>
+          <p>Health: <span id="player-health">100</span></p>
+          <p>Attack: <span id="player-attack">10</span></p>
+          <p>Level: <span id="player-level">1</span></p>
+          <p>EXP: <span id="player-exp">0</span> / <span id="player-exp-next">100</span></p>
+        </div>
 
-<div id="inventory" class="inventory-box">
-  <h2>Inventory</h2>
-  <ul id="inventory-list"></ul>
-</div>
-</div>
+        <div id="inventory" class="inventory-box">
+          <h2>Inventory</h2>
+          <ul id="inventory-list"></ul>
+        </div>
+      </div>
 
-  <div class="hp-container">
-    <p>Player HP</p>
-    <div class="hp-bar-bg">
-      <div id="player-hp" class="hp-bar"></div>
+      <div class="hp-container">
+        <p>Player HP</p>
+        <div class="hp-bar-bg">
+          <div id="player-hp" class="hp-bar"></div>
+        </div>
+      </div>
+
+      <div class="hp-container">
+        <p>Enemy HP</p>
+        <div class="hp-bar-bg">
+          <div id="enemy-hp" class="hp-bar"></div>
+        </div>
+      </div>
+
+      <div class="buttons-container">
+        <button id="start-btn">Start Encounter</button>
+        <button id="attack-btn" disabled>Attack</button>
+      </div>
+
+      <div class="message-container">
+        <div id="log" class="message-box"></div>
+      </div>
     </div>
   </div>
-
-  <div class="hp-container">
-    <p>Enemy HP</p>
-    <div class="hp-bar-bg">
-      <div id="enemy-hp" class="hp-bar"></div>
-    </div>
-  </div>
-
-  <!-- 👇 These were missing -->
-  <button id="start-btn">Start Encounter</button>
-  <button id="attack-btn" disabled>Attack</button>
-
-<div class="message-container">
-  <div id="log" class="message-box"></div>
-  <div id="dialogue" class="dialogue-box"></div>
-</div>
-</div>
-</div>
 
 <script src="script.js"></script>
-
 </body>
 </html>
