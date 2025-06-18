@@ -12,8 +12,14 @@ Might add bosses soon as well as actual images cause it's all text, and
 design to make it look less ugly.
 
 These are the current features as of now:
+
 ·Inventory
+
 ·Leveling
+
 ·Mobs/enemies
+
 ·Dialogue
+
 ·HP and DMG stats for both Player/Enemy.
+
