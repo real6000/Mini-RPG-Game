@@ -5,12 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Mini RPG Starter</title>
 <link rel="stylesheet" href="style.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 </head>
 <body>
-
+<div class="screen-wrapper">
 <div class="game-container">
-  <h1>Mini RPG Starter</h1>
+<h1 style="font-size: 3rem;">Mini RPG Starter</h1>
 
+  <div class="row">
   <div id="player-stats" class="stats-box">
     <h2>Player</h2>
     <p>Health: <span id="player-health">100</span></p>
@@ -22,6 +24,7 @@
 <div id="inventory" class="inventory-box">
   <h2>Inventory</h2>
   <ul id="inventory-list"></ul>
+</div>
 </div>
 
   <div class="hp-container">
@@ -42,7 +45,11 @@
   <button id="start-btn">Start Encounter</button>
   <button id="attack-btn" disabled>Attack</button>
 
+<div class="message-container">
   <div id="log" class="message-box"></div>
+  <div id="dialogue" class="dialogue-box"></div>
+</div>
+</div>
 </div>
 
 <script src="script.js"></script>

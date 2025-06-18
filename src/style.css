@@ -1,98 +1,140 @@
-body {
-  font-family: Arial, sans-serif;
-  background: #222;
-  color: #eee;
-  text-align: center;
-  padding:20px;
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to bottom right, #2c3e50, #34495e);
+  color: #ecf0f1;
 }
-
-#game-container {
-  max-width: 400px;
-  margin:0 auto;
-  background: #333;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 0 15px #00adb5
-}
-
-.stats-box{
-    background:#444;
-    padding:15px;
-    border-radius:6px;
-    margin-bottom: 15px;
-}
-
-.hidden{
-    display:none;
-}
-
-#map {
-  display: grid;
-  grid-template-columns: repeat(10, 40px);
-  grid-template-rows: repeat(10, 40px);
-  gap: 2px;
-  background: #222;
-  border: 2px solid #555;
-}
-
-.tile {
-  width: 40px;
-  height: 40px;
-  background: #333;
+.screen-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 24px;
-  user-select: none;
+  height: 100vh;
+  width: 100vw;
 }
 
-.player {
-  background: #0f9;
-  color: #040;
-  font-weight: bold;
+
+.game-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* split into left and right areas */
+  gap: 40px;
+  width: 90vw;
+  max-width: 1200px;
+  background-color: #1c2833;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 
-#stats {
+h1 {
+  text-align: center;
+  color: #f1c40f;
+  margin-bottom: 25px;
+}
+
+/* Layout row for stats + inventory */
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.stats-box, .inventory-box {
+  flex: 1;
   min-width: 200px;
+  background-color: #2d3e50;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
-button {
-  padding: 10px 20px;
-  background: #00adb5;
-  border: none;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 6px;
-  margin:5px;
-  transition:background 0.3s ease;
+.stats-box h2,
+.inventory-box h2 {
+  margin-top: 0;
+  color: #e67e22;
 }
 
-button:hover {
-  background: #019aa0;
+p, li {
+  margin: 6px 0;
 }
 
-.message-box {
+.hp-section {
   margin-top: 20px;
-  min-height: 50px;
-  font-size: 1.1rem;
 }
 
 .hp-container {
-    margin: 15px 0;
+  margin: 10px 0;
 }
 
 .hp-bar-bg {
-    width: 100%;
-    background: #333;
-    border-radius: 6px;
-    height: 24px;
-    overflow: hidden;
+  background-color: #555;
+  height: 20px;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .hp-bar {
-    height: 100%;
-    background: #4caf50;
-    width: 100%; /* This gets updated via JS */
-    transition: width 0.3s ease;
+  height: 100%;
+  background: linear-gradient(to right, #27ae60, #2ecc71);
+  width: 100%;
+  transition: width 0.3s ease;
 }
+
+/* Buttons */
+button {
+  width: 48%;
+  margin: 1%;
+  padding: 10px;
+  font-size: 1em;
+  border: none;
+  border-radius: 6px;
+  background-color: #3498db;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:disabled {
+  background-color: #7f8c8d;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  background-color: #2980b9;
+}
+
+/* Messages */
+.message-box {
+  background-color: #273746;
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 20px;
+  height: auto;
+  max-height: 180px;
+  overflow: hidden; /* No scrollbars */
+  font-size: 0.95em;
+  box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.1);
+}
+
+.message-box p {
+  margin: 5px 0;
+}
+
+/* Inventory List */
+#inventory-list li {
+  background-color: #34495e;
+  padding: 6px 10px;
+  margin-bottom: 5px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+#inventory-list li:hover {
+  background-color: #3c5f7f;
+}
+
