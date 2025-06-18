@@ -159,7 +159,7 @@ function useItem(index){
         attackBtn.disabled = true;
         startBtn.disabled = false;
     }
-})
+}
 
 
 //Listeners
