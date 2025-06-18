@@ -1,5 +1,8 @@
 const player = {
     name: "You",
+    level: 1,
+    exp: 0,
+    expToNextLevel: 100,
     maxHp: 100,
     hp: 100,
     attackMin: 8,
@@ -56,6 +59,11 @@ function playerTurn() {
   updateUI();
 
   if (enemy.hp <= 0) {
+    log(`You defeated the ${enemy.name}!`);
+    gainExp(50); // Gain experience for defeating the enemy
+    inBattle=false;
+    attackBtn.disabled=true;
+    startBtn.disabled = false;
     endBattle(true);
     return;
   }
@@ -71,6 +79,33 @@ function endBattle(victory){
   } else {
     log("💀 You lost! Press Start to try again.");
   }
+}
+
+function gainExp(amount){
+    player.exp += amount;
+    log(`You gained ${amount} EXP!`);
+
+    while (player.exp >= player.expToNextLevel) {
+        player.exp -= player.expToNextLevel;
+        player.level++;
+        player.expToNextLevel = Math.floor(player.expToNextLevel * 1.5);
+
+        player.maxHp += 20;        // Increase max HP per level
+        player.hp = player.maxHp;   // Heal to full on level up
+        player.attackMin += 2;      // Increase attack range
+        player.attackMax += 3;
+
+        log(`🎉 You leveled up! You are now level ${player.level}.`);
+    }
+
+    updateUI();  // Update health bars and stats display
+    updateLevelUI();
+}
+
+function updateLevelUI() {
+    document.getElementById("player-level").textContent = player.level;
+    document.getElementById("player-exp").textContent = player.exp;
+    document.getElementById("player-exp-next").textContent = player.expToNextLevel;
 }
 
 startBtn.addEventListener("click", () => {
