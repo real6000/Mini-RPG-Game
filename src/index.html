@@ -8,25 +8,34 @@
 </head>
 <body>
 
-<h1>Mini RPG Starter</h1>
+<div class="game-container">
+  <h1>Mini RPG Starter</h1>
 
-  <div class="game-container">
-    <h1>Mini RPG Starter</h1>
+  <div id="player-stats" class="stats-box">
+    <h2>Player</h2>
+    <p>Health: <span id="player-health">100</span></p>
+    <p>Attack: <span id="player-attack">10</span></p>
+  </div>
 
-    <div id="player-stats" class="stats-box">
-      <h2>Player</h2>
-      <p>Health: <span id="player-health">100</span></p>
-      <p>Attack: <span id="player-attack">10</span></p>
+  <div class="hp-container">
+    <p>Player HP</p>
+    <div class="hp-bar-bg">
+      <div id="player-hp" class="hp-bar"></div>
     </div>
+  </div>
 
-    <div id="enemy-stats" class="stats-box hidden">
-      <h2>Enemy</h2>
-      <p>Health: <span id="enemy-health"></span></p>
-      <p>Attack: <span id="enemy-attack"></span></p>
+  <div class="hp-container">
+    <p>Enemy HP</p>
+    <div class="hp-bar-bg">
+      <div id="enemy-hp" class="hp-bar"></div>
     </div>
-    <button id="start-encounter">Start Encounter</button>
-    <button id="attack-btn" class="hidden">Attack</button>
-    <div id="message" class="message-box"></div>
+  </div>
+
+  <!-- 👇 These were missing -->
+  <button id="start-btn">Start Encounter</button>
+  <button id="attack-btn" disabled>Attack</button>
+
+  <div id="log" class="message-box"></div>
 </div>
 
 <script src="script.js"></script>

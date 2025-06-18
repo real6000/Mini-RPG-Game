@@ -77,3 +77,22 @@ button:hover {
   min-height: 50px;
   font-size: 1.1rem;
 }
+
+.hp-container {
+    margin: 15px 0;
+}
+
+.hp-bar-bg {
+    width: 100%;
+    background: #333;
+    border-radius: 6px;
+    height: 24px;
+    overflow: hidden;
+}
+
+.hp-bar {
+    height: 100%;
+    background: #4caf50;
+    width: 100%; /* This gets updated via JS */
+    transition: width 0.3s ease;
+}
