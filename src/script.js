@@ -37,37 +37,40 @@ function randomDamage(min, max) {
 
 
 function enemyTurn() {
-    if (enemy.hp <= 0) return;
+  if (enemy.hp <= 0) return;
 
-    const damage = randomDamage(enemy.attackMin, enemy.attackMax);
-    player.hp = Math.max(player.hp - damage, 0);
-    log(`${enemy.name} hits you for ${damage} damage!`);
-    updateUI();
+  const damage = randomDamage(enemy.attackMin, enemy.attackMax);
+  player.hp = Math.max(player.hp - damage, 0);
+  log(`${enemy.name} hits you for ${damage} damage!`);
+  updateUI();
 
-    if (player.hp <= 0) {
-        log("You have been defeated!");
-        inBattle = false;
-        attackBtn.disabled = true;
-        startBtn.disabled = false;
-    }
+  if (player.hp <= 0) {
+    endBattle(false);
+  }
 }
 
 function playerTurn() {
-    const damage = randomDamage(player.attackMin, player.attackMax);
-    enemy.hp = Math.max(enemy.hp - damage, 0);
-    log(`You strike the ${enemy.name} for ${damage} damage!`);
-    updateUI();
+  const damage = randomDamage(player.attackMin, player.attackMax);
+  enemy.hp = Math.max(enemy.hp - damage, 0);
+  log(`You strike the ${enemy.name} for ${damage} damage!`);
+  updateUI();
 
-    if (enemy.hp <= 0) {
-        log(`You defeated the ${enemy.name}!`);
-        inBattle = false;
-        attackBtn.disabled = true;
-        startBtn.disabled = false;
-        return;
-    }
+  if (enemy.hp <= 0) {
+    endBattle(true);
+    return;
+  }
 
-    // Enemy attacks after small delay
-    setTimeout(enemyTurn, 600);
+  setTimeout(enemyTurn, 600);
+}
+function endBattle(victory){
+    inBattle=false;
+    attackBtn.disabled = true;
+    startBtn.disabled = false;
+  if (victory) {
+    log("🎉 You won! Press Start to fight again.");
+  } else {
+    log("💀 You lost! Press Start to try again.");
+  }
 }
 
 startBtn.addEventListener("click", () => {
@@ -87,3 +90,4 @@ attackBtn.addEventListener("click", () => {
     if (!inBattle) return;
     playerTurn();
 });
+
